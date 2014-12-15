@@ -30,7 +30,7 @@ require 'strscan'
 #
 # [mail]: https://github.com/mikel/mail
 class EmailReplyParser
-  VERSION = "0.5.5"
+  VERSION = "0.5.8"
 
   # Public: Splits an email body into a list of Fragments.
   #
@@ -84,7 +84,7 @@ class EmailReplyParser
 
       # Check for multi-line reply headers. Some clients break up
       # the "On DATE, NAME <EMAIL> wrote:" line into multiple lines.
-      if text =~ /^(On\s(.+)wrote:)$/nm
+      if text =~ /^(?!On.*On\s.+?wrote:)(On\s(.+?)wrote:)$/nm
         # Remove all new lines from the reply header.
         text.gsub! $1, $1.gsub("\n", " ")
       end
@@ -133,7 +133,7 @@ class EmailReplyParser
 
   private
     EMPTY = "".freeze
-    SIGNATURE = '(?m)(--|__|\w-$)|(^(\w+\s*){1,3} ym morf tneS$)'
+    SIGNATURE = '(?m)(--\s*$|__\s*$|\w-$)|(^(\w+\s*){1,3} ym morf tneS$)'
 
     begin
       require 're2'
@@ -152,7 +152,7 @@ class EmailReplyParser
     # Returns nothing.
     def scan_line(line)
       line.chomp!("\n")
-      line.lstrip! unless SIG_REGEX.match(line) 
+      line.lstrip! unless SIG_REGEX.match(line)
 
       # We're looking for leading `>`'s to see if this line is part of a
       # quoted Fragment.

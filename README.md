@@ -7,9 +7,9 @@ This is what GitHub uses to display comments that were created from
 email replies.  This code is being open sourced in an effort to
 crowdsource the quality of our email representation.
 
-See more at the [Rocco docs][rocco].
+See the [Ruby docs][rubydocs] for more information.
 
-[rocco]: http://help.github.com/code/email_reply_parser/
+[rubydocs]: http://rubydoc.info/gems/email_reply_parser/
 
 ##Usage
 
@@ -21,7 +21,7 @@ To parse reply body:
 
 If you have a question about the behavior and formatting of email replies on GitHub, check out [support][support].  If you have a specific issue regarding this library, then hit up the [Issues][issues].
 
-[support]: http://support.github.com/
+[support]: https://github.com/support
 [issues]: https://github.com/github/email_reply_parser/issues
 
 ## Installation
@@ -52,20 +52,14 @@ The best way to get your changes merged back into core is as follows:
 
 ### Quoted Headers
 
-Quoted headers aren't picked up if there's an extra line break:
-
-    On <date>, <author> wrote:
-
-    > blah
-
-Also, they're not picked up if the email client breaks it up into
-multiple lines.  GMail breaks up any lines over 80 characters for you.
+Quoted headers aren't picked up if the email client breaks it up into multiple
+lines.  GMail breaks up any lines over 80 characters for you.
 
     On <date>, <author>
     wrote:
     > blah
 
-Not to mention that we're search for "on" and "wrote".  It won't work
+Not to mention that we're searching for "on" and "wrote".  It won't work
 with other languages.
 
 Possible solution: Remove "reply@reply.github.com" lines...
@@ -77,7 +71,7 @@ signatures:
 
     Hello
 
-    -- 
+    --
     Rick
 
 Not everyone follows this convention:
@@ -91,4 +85,3 @@ Not everyone follows this convention:
     **********************DISCLAIMER***********************************
     * Note: blah blah blah                                            *
     **********************DISCLAIMER***********************************
-
